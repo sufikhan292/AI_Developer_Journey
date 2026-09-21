@@ -1,18 +1,7 @@
-from fastapi import APIRouter,HTTPException
-from pydantic import BaseModel
+from fastapi import APIRouter,HTTPException,Depends
+from routes.users import verify_token
 from database import get_db
-
-
-class StudentResponse(BaseModel):
-    id: int
-    name: str
-    age: int
-    course: str
-
-class StudentCreate(BaseModel):
-    name: str
-    age: int
-    course: str
+from schemas import StudentCreate,StudentResponse
 
 router = APIRouter(prefix="/students", tags=["Students"])
 
@@ -20,8 +9,10 @@ router = APIRouter(prefix="/students", tags=["Students"])
 @router.get("/", response_model=list[StudentResponse])
 def get_students(
     age: int | None = None,
-    course: str | None = None
+    course: str | None = None,
+    user=Depends(verify_token)
 ):
+
     connection = get_db()
     cursor = connection.cursor()
 
@@ -57,7 +48,7 @@ def get_students(
 
 
 @router.post("/", status_code=201)
-def create_student(student: StudentCreate):
+def create_student(student: StudentCreate,user=Depends(verify_token)):
 
     connection = get_db()
     cursor = connection.cursor()
@@ -80,7 +71,7 @@ def create_student(student: StudentCreate):
 
 
 @router.get("/{student_id}", response_model=StudentResponse)
-def get_student(student_id: int):
+def get_student(student_id: int,user=Depends(verify_token)):
 
     connection = get_db()
     cursor = connection.cursor()
@@ -103,7 +94,7 @@ def get_student(student_id: int):
 
 
 @router.put("/{student_id}")
-def update_student(student_id: int, student: StudentCreate):
+def update_student(student_id: int, student: StudentCreate,user=Depends(verify_token)):
 
     connection = get_db()
     cursor = connection.cursor()
@@ -136,7 +127,7 @@ def update_student(student_id: int, student: StudentCreate):
 
 
 @router.delete("/{student_id}")
-def delete_student(student_id: int):
+def delete_student(student_id: int,user=Depends(verify_token)):
 
     connection = get_db()
     cursor = connection.cursor()
