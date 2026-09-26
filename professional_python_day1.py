@@ -193,15 +193,75 @@
 # with text_context():
 #     print("Inside")
 
-from contextlib import contextmanager
+# from contextlib import contextmanager
 
-@contextmanager
-def process():
-    print("Starting process....")
+# @contextmanager
+# def process():
+#     print("Starting process....")
 
-    yield
+#     yield
 
-    print("Ending process......")
+#     print("Ending process......")
 
-with process():
-    print("Doing work....")
+# with process():
+#     print("Doing work....")
+
+# ----------------Hint type---------------------------
+
+# def multiply(a:int,b:int) -> int:
+#     return a*b
+
+# result=multiply(5,7)
+# print(result)
+
+# def student_info(name:str,age:int,course:str)-> str:
+#     return f"{name} is {age} year old and studies in {course}."
+
+# result=student_info("Sufyan",21,"AI")
+# print(result)
+
+# def get_marks()->list[int]:
+#     return [80,85,76,98,76]
+
+# marks=get_marks()
+# print(marks)
+
+# from typing import Union
+
+# def student_info()-> dict[str,Union[str,int]]:
+#     return {
+#         "name":"Sufyan",
+#         "age":21,
+#         "course":"AI"
+#     }
+
+# info=student_info()
+# print(info)
+
+# def get_products()->list[dict[str,str|int]]:
+#     return [
+#         {"Name":"Mouse","Price":1200},
+#         {"Name":"Keyboard","Price":1500}
+#     ]
+
+# product=get_products()
+# print(product)
+
+# def find_product(product_id:int)-> str| None:
+#     if product_id==1:
+#         return "Mouse"
+
+#     return None
+
+# product=find_product(5)
+# print(product)
+
+def calculate_average(marks:list[int])-> float:
+    total=sum(marks)
+    average=total/len(marks)
+    return average
+
+marks=[87,82,83,85,84]
+
+result=calculate_average(marks)
+print(result)
