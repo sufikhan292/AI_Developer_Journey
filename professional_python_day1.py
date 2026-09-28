@@ -256,12 +256,104 @@
 # product=find_product(5)
 # print(product)
 
-def calculate_average(marks:list[int])-> float:
-    total=sum(marks)
-    average=total/len(marks)
-    return average
+# def calculate_average(marks:list[int])-> float:
+#     total=sum(marks)
+#     average=total/len(marks)
+#     return average
 
-marks=[87,82,83,85,84]
+# marks=[87,82,83,85,84]
 
-result=calculate_average(marks)
-print(result)
+# result=calculate_average(marks)
+# print(result)
+
+# -------------------------try/except--------------------------
+
+# def calculate_average(marks):
+#     try:
+#         total=sum(marks)
+#         average=total/len(marks)
+#         return average
+#     except ZeroDivisionError:
+#         print("Cannot divided by zero")
+#         return None
+
+#     except TypeError:
+#         return "Invalid numbers"
+
+#     finally:
+#         print("Calculation funtion is completed")
+
+# print(calculate_average([44,77,88,"abc",44]))
+
+# def process_age(age):
+#     try:
+#         age=int(age)
+
+#         if age<0:
+#             raise ValueError("Age cannot be negative")
+
+#         return age
+
+#     except ValueError as error:
+#         print("Error:",error)
+
+
+#     finally:
+#         print("Age process is complete")
+
+
+# print(process_age(21))
+# print(process_age(-21))
+# print(process_age("acs"))
+
+# -------------------MINI PROJECT--------------------------
+
+class InvalidMarksError(Exception):
+    pass
+class InvalidAgeError(Exception):
+    pass
+
+class InvalidNameError(Exception):
+    pass
+
+def validate_student(name,age,marks):
+
+    if not name.strip():
+        raise InvalidNameError("Name cannot be empty")
+
+    if age<0:
+        raise InvalidAgeError("Age cannot be negative")
+
+    if len(marks)==0:
+        raise InvalidMarksError("Marks cannot be empty")
+
+    for mark in marks:
+        if mark<0 or mark>100:
+            raise InvalidMarksError(f"Invalid mark :{mark}")
+
+    average=sum(marks)/len(marks)
+
+
+    return {
+        "name":name,
+        "age":age,
+        "average":average
+    }
+
+try:
+    student=validate_student(
+        "",
+        21,
+        [34,55,160,88]
+    )
+
+    print(student)
+
+except InvalidNameError as error:
+    print("Name error:",error)
+
+except InvalidMarksError as error:
+    print("Marks error:",error)
+
+except InvalidAgeError as error:
+    print("Age error:",error)
