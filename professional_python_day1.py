@@ -308,52 +308,232 @@
 
 # -------------------MINI PROJECT--------------------------
 
-class InvalidMarksError(Exception):
-    pass
-class InvalidAgeError(Exception):
-    pass
+# class InvalidMarksError(Exception):
+#     pass
+# class InvalidAgeError(Exception):
+#     pass
 
-class InvalidNameError(Exception):
-    pass
+# class InvalidNameError(Exception):
+#     pass
 
-def validate_student(name,age,marks):
+# def validate_student(name,age,marks):
 
-    if not name.strip():
-        raise InvalidNameError("Name cannot be empty")
+#     if not name.strip():
+#         raise InvalidNameError("Name cannot be empty")
 
-    if age<0:
-        raise InvalidAgeError("Age cannot be negative")
+#     if age<0:
+#         raise InvalidAgeError("Age cannot be negative")
 
-    if len(marks)==0:
-        raise InvalidMarksError("Marks cannot be empty")
+#     if len(marks)==0:
+#         raise InvalidMarksError("Marks cannot be empty")
 
-    for mark in marks:
-        if mark<0 or mark>100:
-            raise InvalidMarksError(f"Invalid mark :{mark}")
+#     for mark in marks:
+#         if mark<0 or mark>100:
+#             raise InvalidMarksError(f"Invalid mark :{mark}")
 
-    average=sum(marks)/len(marks)
+#     average=sum(marks)/len(marks)
 
 
-    return {
-        "name":name,
-        "age":age,
-        "average":average
-    }
+#     return {
+#         "name":name,
+#         "age":age,
+#         "average":average
+#     }
 
-try:
-    student=validate_student(
-        "",
-        21,
-        [34,55,160,88]
-    )
+# try:
+#     student=validate_student(
+#         "",
+#         21,
+#         [34,55,160,88]
+#     )
 
-    print(student)
+#     print(student)
 
-except InvalidNameError as error:
-    print("Name error:",error)
+# except InvalidNameError as error:
+#     print("Name error:",error)
 
-except InvalidMarksError as error:
-    print("Marks error:",error)
+# except InvalidMarksError as error:
+#     print("Marks error:",error)
 
-except InvalidAgeError as error:
-    print("Age error:",error)
+# except InvalidAgeError as error:
+#     print("Age error:",error)
+
+
+# -------------------------------dataclass--------------------------------------
+
+# from dataclasses import dataclass
+
+# @dataclass
+# class Product:
+#     name:str
+#     price:float
+#     quantity:int
+
+#     def total_self(self):
+#         return self.price*self.quantity
+
+# products=[
+#     Product("Laptop",100000,2),
+#     Product("Mouse",2500,3)
+# ]
+
+# for product in products:
+#     print(product.name, "=", product.total_self())
+
+
+# from dataclasses import dataclass
+
+
+# @dataclass
+# class Product:
+#     name: str
+#     price: float
+#     quantity: int
+
+#     def __post_init__(self):
+#         if self.price < 0:
+#             raise ValueError("Price cannot be negative")
+
+#         if self.quantity < 0:
+#             raise ValueError("Quantity cannot be negative")
+
+#         if not self.name.strip():
+#             raise ValueError("Name cannot be empty")
+
+#     def total_self(self):
+#         return self.price * self.quantity
+
+
+# product_data = [
+#     ("Laptop", 100000, 2),
+#     ("Mouse", 2500, 3),
+#     ("Keyboard", 5000, 2)
+# ]
+
+# products = []
+
+# for name, price, quantity in product_data:
+#     try:
+#         product = Product(name, price, quantity)
+#         products.append(product)
+
+#     except ValueError as error:
+#         print("Product Error:", error)
+
+
+# for product in products:
+#     print(product.name, "=", product.total_self())
+
+# ----------------------Property-------------------------------
+
+# from dataclasses import dataclass
+
+
+# @dataclass
+# class Product:
+#     name: str
+#     price: float
+#     quantity: int
+
+#     def __post_init__(self):
+#         if self.price < 0:
+#             raise ValueError("Price cannot be negative")
+
+#         if self.quantity < 0:
+#             raise ValueError("Quantity cannot be negative")
+
+#         if not self.name.strip():
+#             raise ValueError("Name cannot be empty")
+
+#     @property
+#     def total_price(self):
+#         return self.price * self.quantity
+
+#     @property
+#     def discount_price(self):
+#         discount=self.price*10/100
+#         final_price=self.price-discount
+#         return final_price
+
+# product = Product("Laptop", 100000, 2)
+
+# print("Product:", product.name)
+# print("Price:", product.price)
+# print("Quantity:", product.quantity)
+# print("Total:", product.total_price)
+
+# print("Discount Pirce:",product.discount_price)
+
+# -------------------Class method or static method-----------------------------------
+
+from dataclasses import dataclass
+
+
+@dataclass
+class Product:
+    name: str
+    price: float
+    quantity: int
+
+    # Object ki validation
+    def __post_init__(self):
+        if self.price < 0:
+            raise ValueError("Price cannot be negative")
+
+        if self.quantity < 0:
+            raise ValueError("Quantity cannot be negative")
+
+        if not self.name.strip():
+            raise ValueError("Name cannot be empty")
+
+    # Property: total price
+    @property
+    def total_price(self):
+        return self.price * self.quantity
+
+    # Property: 10% discounted price
+    @property
+    def discount_price(self):
+        discount = self.price * 10 / 100
+        return self.price - discount
+
+    # Class method: string se Product object banana
+    @classmethod
+    def from_string(cls, data):
+        name, price, quantity = data.split(",")
+
+        return cls(
+            name,
+            float(price),
+            int(quantity)
+        )
+
+    # Static method: discount calculate karna
+    @staticmethod
+    def calculate_discount(price, percentage):
+        discount = price * percentage / 100
+        return price - discount
+
+
+# Normal object
+product1 = Product("Laptop", 100000, 2)
+
+print("Product:", product1.name)
+print("Price:", product1.price)
+print("Quantity:", product1.quantity)
+print("Total Price:", product1.total_price)
+print("10% Discount Price:", product1.discount_price)
+
+
+# Class method
+product2 = Product.from_string("Mouse,2500,3")
+
+print("\nProduct 2:", product2)
+print("Total Price:", product2.total_price)
+
+
+# Static method
+discounted = Product.calculate_discount(50000, 20)
+
+print("\nOriginal Price:", 50000)
+print("After 20% Discount:", discounted)
