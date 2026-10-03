@@ -1,0 +1,11 @@
+id,name,age,course,email
+1,Sufyan,20,AI,sufyan@gmail.com
+2,Ali,21,AI,ali@gmail.com
+3,Ahmed,,Data Science,ahmed@gmail.com
+4,Sara,22,AI,sara@gmail.com
+5,Ali,21,AI,ali@gmail.com
+6,Hamza,-5,AI,hamza@gmail.com
+7,Ayesha,23,,ayesha@gmail.com
+8,Usman,20,AI,
+9,Zain,24,Data Science,zain@gmail.com
+10,Sara,22,AI,sara@gmail.com

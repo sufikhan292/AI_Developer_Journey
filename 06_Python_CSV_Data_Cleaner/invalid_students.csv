@@ -1,0 +1,5 @@
+id,name,age,course,email,reason
+3,Ahmed,,Data Science,ahmed@gmail.com,Missing age
+6,Hamza,-5,AI,hamza@gmail.com,Age must be greater than zero
+7,Ayesha,23,,ayesha@gmail.com,Missing course
+8,Usman,20,AI,,Missing email
