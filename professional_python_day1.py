@@ -466,74 +466,74 @@
 
 # -------------------Class method or static method-----------------------------------
 
-from dataclasses import dataclass
+# from dataclasses import dataclass
 
 
-@dataclass
-class Product:
-    name: str
-    price: float
-    quantity: int
+# @dataclass
+# class Product:
+#     name: str
+#     price: float
+#     quantity: int
 
-    # Object ki validation
-    def __post_init__(self):
-        if self.price < 0:
-            raise ValueError("Price cannot be negative")
+#     # Object ki validation
+#     def __post_init__(self):
+#         if self.price < 0:
+#             raise ValueError("Price cannot be negative")
 
-        if self.quantity < 0:
-            raise ValueError("Quantity cannot be negative")
+#         if self.quantity < 0:
+#             raise ValueError("Quantity cannot be negative")
 
-        if not self.name.strip():
-            raise ValueError("Name cannot be empty")
+#         if not self.name.strip():
+#             raise ValueError("Name cannot be empty")
 
-    # Property: total price
-    @property
-    def total_price(self):
-        return self.price * self.quantity
+#     # Property: total price
+#     @property
+#     def total_price(self):
+#         return self.price * self.quantity
 
-    # Property: 10% discounted price
-    @property
-    def discount_price(self):
-        discount = self.price * 10 / 100
-        return self.price - discount
+#     # Property: 10% discounted price
+#     @property
+#     def discount_price(self):
+#         discount = self.price * 10 / 100
+#         return self.price - discount
 
-    # Class method: string se Product object banana
-    @classmethod
-    def from_string(cls, data):
-        name, price, quantity = data.split(",")
+#     # Class method: string se Product object banana
+#     @classmethod
+#     def from_string(cls, data):
+#         name, price, quantity = data.split(",")
 
-        return cls(
-            name,
-            float(price),
-            int(quantity)
-        )
+#         return cls(
+#             name,
+#             float(price),
+#             int(quantity)
+#         )
 
-    # Static method: discount calculate karna
-    @staticmethod
-    def calculate_discount(price, percentage):
-        discount = price * percentage / 100
-        return price - discount
-
-
-# Normal object
-product1 = Product("Laptop", 100000, 2)
-
-print("Product:", product1.name)
-print("Price:", product1.price)
-print("Quantity:", product1.quantity)
-print("Total Price:", product1.total_price)
-print("10% Discount Price:", product1.discount_price)
+#     # Static method: discount calculate karna
+#     @staticmethod
+#     def calculate_discount(price, percentage):
+#         discount = price * percentage / 100
+#         return price - discount
 
 
-# Class method
-product2 = Product.from_string("Mouse,2500,3")
+# # Normal object
+# product1 = Product("Laptop", 100000, 2)
 
-print("\nProduct 2:", product2)
-print("Total Price:", product2.total_price)
+# print("Product:", product1.name)
+# print("Price:", product1.price)
+# print("Quantity:", product1.quantity)
+# print("Total Price:", product1.total_price)
+# print("10% Discount Price:", product1.discount_price)
 
 
-# Static method
-discounted = Product.calculate_discount(50000, 20)
+# # Class method
+# product2 = Product.from_string("Mouse,2500,3")
 
-print("\nOriginal Price:", 50000)
-print("After 20% Discount:", discounted)
+# print("\nProduct 2:", product2)
+# print("Total Price:", product2.total_price)
+
+
+# # Static method
+# discounted = Product.calculate_discount(50000, 20)
+
+# print("\nOriginal Price:", 50000)
+# print("After 20% Discount:", discounted)
