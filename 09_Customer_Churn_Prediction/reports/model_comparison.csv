@@ -1,0 +1,3 @@
+model,threshold,validation_f1,selected,test_accuracy,test_churn_precision,test_churn_recall,test_churn_f1
+Logistic Regression,0.3,0.6258351893095768,True,0.7537260468417317,0.5251396648044693,0.7540106951871658,0.6190998902305159
+Random Forest,0.3,0.61742006615215,False,,,,
